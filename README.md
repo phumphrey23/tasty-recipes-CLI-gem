@@ -1,8 +1,6 @@
 # TastyRecipes
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tasty_recipes`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+  A user will input ingredients they have or want in a meal.  This gem will pull all recipe titles from Tasty (tasty.co) containing those ingredients and a user can choose which recipe they'd like to try.  Once the user inputs which recipe, all the required ingredients and instructions will display.  If a user inputs an invalid choice for ingredients, 5 most recent recipes will display for the user to choose from.  If the user inputs an invalid response from the listed recipes, they will be prompted to choose from the list displayed or start a new search.
 
 ## Installation
 
