@@ -1,4 +1,7 @@
 #encapsulate logic of how the user will interact with program
+require_relative "../lib/tasty_recipes.rb"
+require_relative "../lib/interface.rb"
+
 
 class Interface
 
@@ -18,15 +21,15 @@ class Interface
   end
 
   def list_recipes
-
+    #collect recipe titles and order in a numbered list array
   end
 
   def list_ingredients
-
+    #format ingredients
   end
 
   def list_instructions
-
+    #format instructions
   end
 
 end

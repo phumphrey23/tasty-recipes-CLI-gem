@@ -1,8 +1,14 @@
 class Recipe
-  attr_accessor :title, :rating, :course, :ingredients, :instructions
+  attr_accessor :title, :course, :ingredients, :instructions
 
-  def initialize(title)
-    @title = title
+  @@all = []
+
+  def initialize
+    @@all << self
+  end
+
+  def self.all
+    @@all
   end
 
 end
