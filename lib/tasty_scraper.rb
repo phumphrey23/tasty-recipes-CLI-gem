@@ -14,19 +14,22 @@ class Scraper
        recipes << {title: recipe.title}
      end
      puts recipes
-     binding.pry
+     #binding.pry
   end
 
   def scrape_recipe_info(recipe_url)
     recipe_page = Nokogiri::HTML(open(recipe_url))
-    recipe.ingredients = recipe_page.css("ingredients__section")
-    recipe.instructions = recipe_page.css("prep-steps")
+    recipe = {}
+    recipe[:ingredients] = recipe_page.css(".") #iterate over list items and push to hash
+    recipe[:instructions] = recipe_page.css(".") #iterate over list items and push to hash
+    #need to figure out
+    puts recipe
   end
 
 end
 
 somestuff = Scraper.new
-somestuff.scrape_recipe_titles("https://tasty.co/search?q=eggs")
+somestuff.scrape_recipe_info("https://tasty.co/recipe/easy-omelette-cups")
 
 #CLASSES
 #feed-item
