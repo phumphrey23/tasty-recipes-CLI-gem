@@ -7,29 +7,25 @@ class Interface
 
   def call
     #welcome message
-    #user input of ingredients (https://tasty.co/search?q=some+ingredient)
+    #user input of ingredients (scrape https://tasty.co/search?q=some+ingredient)
     #puts recipe titles that contain input ingredients
-    #user input of recipe to try (https://tasty.co/recipe/title-of-recipe)
-    #puts all ingredients and instructions
+    #user input of recipe to try (scrape https://tasty.co/recipe/title-of-recipe for ingredients & instructions)
+    #puts all ingredients and instructions for selected recipe
 
+
+      #ELSE
     #user input of ingredients not found
     #error with prompt to enter less ingredients
-    #user inputs 1 ingredient and not found or no ingredients
+      #ELSE
+    #user inputs 1 ingredient and not found or user inputs no ingredients
     #puts top 10 most recent recipe titles
-    #user input of recipe to try
-    #puts all ingredients and instructions
+
+
+
   end
 
-  def list_recipes
-    #collect recipe titles and order in a numbered list array
-  end
-
-  def list_ingredients
-    #format ingredients
-  end
-
-  def list_instructions
-    #format instructions
+  def format_lists
+    #collect array items and puts an ordered numbered list
   end
 
 end
