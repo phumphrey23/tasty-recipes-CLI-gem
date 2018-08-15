@@ -14,16 +14,17 @@ class Scraper
        recipes << {title: recipe.title}
      end
      puts recipes
-     #binding.pry
   end
 
   def scrape_recipe_info(recipe_url)
     recipe_page = Nokogiri::HTML(open(recipe_url))
     recipe = {}
-    recipe[:ingredients] = recipe_page.css(".") #iterate over list items and push to hash
-    recipe[:instructions] = recipe_page.css(".") #iterate over list items and push to hash
-    #need to figure out
+    recipe[:ingredients] = recipe_page.css(".xs-mb1").css(".xs-mt0").text.gsub(/\s+/," ")
+    recipe[:instructions] = recipe_page.css(".prep-steps").children.css(".xs-mb2").text.gsub(/\s+/," ")
+    #need to edit to seperate each li with comma
+    #iterate, push to array, join elements, seperate with comma
     puts recipe
+    #binding.pry
   end
 
 end
