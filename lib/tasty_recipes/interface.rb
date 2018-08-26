@@ -6,10 +6,17 @@ require_relative "../lib/interface.rb"
 class Interface
 
   def call
-    #welcome message
-    user_input = gets.chomp
+    puts "Welcome to Tasty Recipes"
+    puts "Enter 1-3 ingredients you have"
+    #Welcome message
+
+    user_input = gets.chomp.downcase
     #user input of ingredients
+
+    search_by_ingredients(user_input)
     #puts recipe titles that contain input ingredients
+
+
     #user input of recipe to try (scrape https://tasty.co/recipe/title-of-recipe for ingredients & instructions)
     #puts all ingredients and instructions for selected recipe
 
