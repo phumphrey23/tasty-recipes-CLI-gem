@@ -1,5 +1,8 @@
-require "tasty_recipes/version"
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
 
-module TastyRecipes
-  # Your code goes here...
-end
+require_relative "./tasty_recipes/version"
+require_relative './tasty_recipes/interface'
+require_relative './tasty_recipes/recipe'
+require_relative './tasty_recipes/scraper'

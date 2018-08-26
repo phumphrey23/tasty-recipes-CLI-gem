@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 require_relative './recipe.rb'
 
-class Scraper
+class TastyRecipes::Scraper
   #get url from user search converter
   def self.scrape_recipe_titles(url)
      recipe_posts = Nokogiri::HTML(open(url)).css(".feed-item")
@@ -29,7 +29,3 @@ end
 
 #somestuff = Scraper.new
 #somestuff.scrape_recipe_info("https://tasty.co/recipe/easy-omelette-cups")
-
-#CLASSES
-#feed-item
-#ingredients-prep --> ingredients__section, prep-steps
