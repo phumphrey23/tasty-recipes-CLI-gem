@@ -11,4 +11,8 @@ class Recipe
     @@all
   end
 
+  #def add_recipe_info
+    #add scraped ingredients and instructions to recipes?
+  #end
+
 end
