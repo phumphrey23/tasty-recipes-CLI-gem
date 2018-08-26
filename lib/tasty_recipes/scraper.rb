@@ -1,8 +1,3 @@
-require 'pry'
-require 'nokogiri'
-require 'open-uri'
-require_relative './recipe.rb'
-
 class TastyRecipes::Scraper
   #get url from user search converter
   def self.scrape_recipe_titles(url)

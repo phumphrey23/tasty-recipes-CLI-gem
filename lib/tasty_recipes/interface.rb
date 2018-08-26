@@ -1,7 +1,4 @@
 #encapsulate logic of how the user will interact with program
-require_relative "../lib/tasty_recipes.rb"
-require_relative "../lib/interface.rb"
-
 
 class TastyRecipes::Interface
 
@@ -30,8 +27,6 @@ class TastyRecipes::Interface
       #ELSE
     #user inputs 1 ingredient and not found or user inputs no ingredients
     #puts top 10 most recent recipe titles
-
-
 
   end
 
