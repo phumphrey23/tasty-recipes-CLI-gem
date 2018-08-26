@@ -7,7 +7,8 @@ class Interface
 
   def call
     #welcome message
-    #user input of ingredients (scrape https://tasty.co/search?q=some+ingredient)
+    user_input = gets.chomp
+    #user input of ingredients
     #puts recipe titles that contain input ingredients
     #user input of recipe to try (scrape https://tasty.co/recipe/title-of-recipe for ingredients & instructions)
     #puts all ingredients and instructions for selected recipe
@@ -24,8 +25,19 @@ class Interface
 
   end
 
-  def format_lists
-    #collect array items and puts an ordered numbered list
+  def format_lists(array)
+    array.each.with_index(1) do |element, i|
+      puts "#{i}. #{element}"
+    end
+  end
+
+  def search_by_ingredients(user_input)
+  #generate url slug given user input for ingredients
+  #scrapes generated url for titles
+    base = "https://tasty.co/search?q="
+    slug = user_input.gsub(/\s/,'+')
+    url = base + slug
+    Scraper.scrape_recipe_titles(url)
   end
 
 end
