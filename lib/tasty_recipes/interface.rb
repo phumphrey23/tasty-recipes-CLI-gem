@@ -44,7 +44,8 @@ class Interface
     base = "https://tasty.co/search?q="
     slug = user_input.gsub(/\s/,'+')
     url = base + slug
-    Scraper.scrape_recipe_titles(url)
+    recipe_titles = Scraper.scrape_recipe_titles(url)
+    recipe_titles.format_lists
   end
 
 end
