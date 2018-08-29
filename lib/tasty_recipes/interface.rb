@@ -64,9 +64,13 @@ class TastyRecipes::Interface
     end
 
     #scrape ingredients and instruction to add to an instance of a recipe
+      TastyRecipes::Scraper.scrape_recipe_info(selected_recipe)
 
-      selected_recipe.TastyRecipes::Scraper.scrape_recipe_info(recipe)
-    end
+      puts "#{selected_recipe.title}"
+      puts "Here are the ingredients you will need:"
+      selected_recipe.ingredients.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+      puts "Follow these instructions:"
+      selected_recipe.instructions.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
   end
 
 end
