@@ -11,11 +11,4 @@ class TastyRecipes::Recipe
     @@all
   end
 
-  def add_recipe_info(info)
-    #add scraped ingredients and instructions to recipe hash
-    info.each do |attribute, value|
-      self.send("#{attribute}=", value)
-    end
-  end
-
 end

@@ -3,7 +3,6 @@
 class TastyRecipes::Interface
 
   def call
-    #binding.pry
     puts "Welcome to Tasty Recipes"
     puts "Enter 1-3 ingredients you have or want to cook with"
     #Welcome message
@@ -33,7 +32,7 @@ class TastyRecipes::Interface
 
   def format_lists(array)
     array.each.with_index(1) do |element, i|
-      puts "#{i}. #{element}"
+      puts "#{i}. #{element.title}"
     end
   end
 
@@ -44,21 +43,24 @@ class TastyRecipes::Interface
     url = base + slug
 
     #scrapes generated url for recipe titles
-    recipe_titles = TastyRecipes::Scraper.scrape_recipe_titles(url)
-    @recipes = recipe_titles.format_lists
+    TastyRecipes::Scraper.scrape_recipe(url)
+    #all_recipes = TastyRecipes::Recipe.all
+    binding.pry
+    #puts array of recipe titles
+
   end
 
   def recipe_info(selected_recipe_num)
     #generate recipe_url from selected recipe
     if selected_recipe_num.to_i > 0
-      selected_recipe = @recipes[selected_recipe_num.to_i-1]
+      selected_recipe = TastyRecipes::Recipe.all[selected_recipe_num.to_i-1]
     else
       puts "please enter the number of the recipe you'd like to try"
     end
 
 
     #scrape ingredients and instruction to add to a recipe
-    Recipe.all.each do |recipe|
+    TastyRecipes::Recipe.all.each do |recipe|
       info = Scraper.scrape_recipe_info(recipe_url)
       recipe.add_recipe_info(info)
     end
