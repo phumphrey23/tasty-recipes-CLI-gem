@@ -23,6 +23,3 @@ class TastyRecipes::Scraper
   end
 
 end
-
-#somestuff = Scraper.new
-#somestuff.scrape_recipe_info("https://tasty.co/recipe/easy-omelette-cups")
