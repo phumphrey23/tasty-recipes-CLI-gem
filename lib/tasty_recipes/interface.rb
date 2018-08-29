@@ -15,7 +15,7 @@ class TastyRecipes::Interface
 
     puts "Enter the number of the recipe you would like to try"
     selected_recipe_num = gets.chomp
-    #user input of recipe to try (scrape https://tasty.co/recipe/title-of-recipe for ingredients & instructions)
+    #user input of recipe to try (scrape recipe.url for ingredients & instructions)
 
     recipe_info(selected_recipe_num)
     #puts all ingredients and instructions for selected recipe
@@ -47,7 +47,7 @@ class TastyRecipes::Interface
 
     #collects all recipe titles and prints in formated list
     recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title}
-    
+
     #recipe_titles.format_lists
     recipe_titles.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
 
@@ -63,9 +63,9 @@ class TastyRecipes::Interface
       puts "please enter the number of the recipe you'd like to try"
     end
 
-    #scrape ingredients and instruction to add to a recipe
-    TastyRecipes::Recipe.all.each do |recipe|
-      recipe.Scraper.scrape_recipe_info(recipe_url)
+    #scrape ingredients and instruction to add to an instance of a recipe
+
+      selected_recipe.TastyRecipes::Scraper.scrape_recipe_info(recipe)
     end
   end
 
