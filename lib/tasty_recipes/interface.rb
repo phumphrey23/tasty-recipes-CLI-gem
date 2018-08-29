@@ -30,9 +30,9 @@ class TastyRecipes::Interface
 
   end
 
-  def format_lists(array)
-    array.each.with_index(1) do |element, i|
-      puts "#{i}. #{element.title}"
+  def format_lists
+    self.each.with_index(1) do |element, i|
+      puts "#{i}. #{element}"
     end
   end
 
@@ -44,9 +44,14 @@ class TastyRecipes::Interface
 
     #scrapes generated url for recipe titles
     TastyRecipes::Scraper.scrape_recipe(url)
-    #all_recipes = TastyRecipes::Recipe.all
-    binding.pry
-    #puts array of recipe titles
+
+    #collects all recipe titles and prints in formated list
+    recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title}
+    
+    #recipe_titles.format_lists
+    recipe_titles.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+
+    #binding.pry
 
   end
 
@@ -58,11 +63,9 @@ class TastyRecipes::Interface
       puts "please enter the number of the recipe you'd like to try"
     end
 
-
     #scrape ingredients and instruction to add to a recipe
     TastyRecipes::Recipe.all.each do |recipe|
-      info = Scraper.scrape_recipe_info(recipe_url)
-      recipe.add_recipe_info(info)
+      recipe.Scraper.scrape_recipe_info(recipe_url)
     end
   end
 
