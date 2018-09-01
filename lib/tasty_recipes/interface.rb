@@ -4,13 +4,16 @@ class TastyRecipes::Interface
 
   def call
     puts "Welcome to Tasty Recipes"
-    puts "Enter 1-3 ingredients you have or want to cook with"
+    puts "Enter 1 or more ingredients you have or want to cook with"
     #Welcome message
 
     ingredients = gets.chomp.downcase
     #user input of ingredients
-
-    search_by_ingredients(ingredients)
+    if ingredients != nil
+      search_by_ingredients(ingredients)
+    else
+      puts "Please enter a valid search"
+    end
     #puts recipe titles that contain input ingredients
 
     puts "Enter the number of the recipe you would like to try"
@@ -28,6 +31,12 @@ class TastyRecipes::Interface
     #user inputs 1 ingredient and not found or user inputs no ingredients
     #puts top 10 most recent recipe titles
 
+    #PROBLEMS TO ADDRESS
+      #search not found
+      #every title past 20 has no usable info
+      #recipes within a recipe's title
+      #searching non-ingredients (ex. valid searches like breakfast, ravioli, etc will return titles)
+
   end
 
   def format_lists
@@ -39,12 +48,22 @@ class TastyRecipes::Interface
   def search_by_ingredients(ingredients)
   #generate url slug given user input for ingredients
     base = "https://tasty.co/search?q="
-    slug = ingredients.gsub(/\s/,'+')
+
+    if ingredients != nil
+      slug = ingredients.gsub(/\s/,'+')
+    else
+      puts "Enter a valid search"
+      self.call
+    end
+
     url = base + slug
 
     #scrapes generated url for recipe titles
-    TastyRecipes::Scraper.scrape_recipe(url)
-
+    scraped_titles = TastyRecipes::Scraper.scrape_recipe(url)
+    if scraped_titles == nil
+      puts " Search not found. Please enter a valid search"
+      self.call #start over
+    end
     #collects all recipe titles and prints in formated list
     recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title}
 
@@ -66,6 +85,7 @@ class TastyRecipes::Interface
     #scrape ingredients and instruction to add to an instance of a recipe
       TastyRecipes::Scraper.scrape_recipe_info(selected_recipe)
 
+      #print the selected recipe
       puts "#{selected_recipe.title}"
       puts "Here are the ingredients you will need:"
       selected_recipe.ingredients.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
