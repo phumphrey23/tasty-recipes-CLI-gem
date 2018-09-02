@@ -4,17 +4,16 @@ class TastyRecipes::Interface
 
   def call
     puts "Welcome to Tasty Recipes"
-    puts "Enter 1 or more ingredients you have or want to cook with"
+    puts "Please enter a valid search.  You can search by ingredients, meal course, or a name of a specific dish."
     #Welcome message
 
-    ingredients = gets.chomp.downcase
+    input = gets.chomp.downcase
     #user input of ingredients
-    if ingredients != nil
-      search_by_ingredients(ingredients)
-    else
-      puts "Please enter a valid search"
-    end
+
+    search(input)
+
     #puts recipe titles that contain input ingredients
+    print_titles
 
     puts "Enter the number of the recipe you would like to try"
     selected_recipe_num = gets.chomp
@@ -23,6 +22,16 @@ class TastyRecipes::Interface
     recipe_info(selected_recipe_num)
     #puts all ingredients and instructions for selected recipe
 
+    if recipe.ingredients != [] && recipe.instructions != []
+      print_recipe(recipe)
+    else
+      TastyRecipes::Recipe.all.clear
+      TastyRecipes::Scraper.scrape_recipe(recipe.url)
+      puts "Enter the number of the recipe you'd like to try from this compilation"
+      print_titles
+    end
+    #1 print ingredients and instruction (FINISHED)
+    #2 if compilation --> scrape_compilation_recipe, get input, get recipe_info (FINISHED)
 
       #ELSE
     #user input of ingredients not found
@@ -32,10 +41,11 @@ class TastyRecipes::Interface
     #puts top 10 most recent recipe titles
 
     #PROBLEMS TO ADDRESS
+      #invalid input (special characters or blank)
       #search not found
-      #every title past 20 has no usable info
+      #every title past 20 has no usable info / RESOLVED
       #recipes within a recipe's title
-      #searching non-ingredients (ex. valid searches like breakfast, ravioli, etc will return titles)
+      #searching non-ingredients but still valid (ex. valid searches like breakfast, ravioli, etc will return titles) / RESOLVED
 
   end
 
@@ -45,33 +55,29 @@ class TastyRecipes::Interface
     end
   end
 
-  def search_by_ingredients(ingredients)
+  def search(input)
   #generate url slug given user input for ingredients
     base = "https://tasty.co/search?q="
-
-    if ingredients != nil
-      slug = ingredients.gsub(/\s/,'+')
+    #special = ",", "+", "!", ".", "@", "#", "$", "^", "&", "*", "(", ")", "_", "-", "="
+    special = "?<>',?[]}{=-)(*&^%$#`~{}"
+    if input == nil || input =~ /[#{special.gsub(/./){|char| "\\#{char}"}}]/
+      puts "Invalid search"
+      call
     else
-      puts "Enter a valid search"
-      self.call
+      slug = input.gsub(/\s/,'+')
     end
 
     url = base + slug
 
-    #scrapes generated url for recipe titles
-    scraped_titles = TastyRecipes::Scraper.scrape_recipe(url)
-    if scraped_titles == nil
-      puts " Search not found. Please enter a valid search"
-      self.call #start over
-    end
-    #collects all recipe titles and prints in formated list
-    recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title}
-
-    #recipe_titles.format_lists
-    recipe_titles.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
-
     #binding.pry
+    #scrapes generated url for recipe titles
+    TastyRecipes::Scraper.scrape_recipe(url)
+  end
 
+  def valid_search(input)
+    input != nil
+    input.none?(",", "+", "!", ".", "@", "#", "$", "^", "&", "*", "(", ")", "_", "-", "=")
+      #puts "Invalid input. Do not iclude special characters in your search and be sure there is a space between each word"
   end
 
   def recipe_info(selected_recipe_num)
@@ -79,18 +85,29 @@ class TastyRecipes::Interface
     if selected_recipe_num.to_i > 0
       selected_recipe = TastyRecipes::Recipe.all[selected_recipe_num.to_i-1]
     else
-      puts "please enter the number of the recipe you'd like to try"
+      puts "Invalid Input"
+      call
     end
 
     #scrape ingredients and instruction to add to an instance of a recipe
       TastyRecipes::Scraper.scrape_recipe_info(selected_recipe)
 
-      #print the selected recipe
-      puts "#{selected_recipe.title}"
-      puts "Here are the ingredients you will need:"
-      selected_recipe.ingredients.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
-      puts "Follow these instructions:"
-      selected_recipe.instructions.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+    #binding.pry
+  end
+
+  def print_titles
+    #collects all recipe titles in an array
+    recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title }
+    #prints formated list
+    recipe_titles.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+  end
+
+  def print_recipe(recipe)
+    puts "#{recipe.title}"
+    puts "Here are the ingredients you will need:"
+    recipe.ingredients.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+    puts "Follow these instructions:"
+    recipe.instructions.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
   end
 
 end

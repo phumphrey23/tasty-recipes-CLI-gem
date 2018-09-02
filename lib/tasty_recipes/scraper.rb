@@ -1,7 +1,12 @@
 class TastyRecipes::Scraper
   #get url from user search converter
   def self.scrape_recipe(url)
+    if url.include?("compilation")
+    recipe_posts = Nokogiri::HTML(open(url)).css(".compilation-recipes__list").css(".feed-item")
+   else
      recipe_posts = Nokogiri::HTML(open(url)).css(".feed-item")
+   end
+
 
      recipe_posts.each do |item|
        recipe = TastyRecipes::Recipe.new
@@ -10,9 +15,9 @@ class TastyRecipes::Scraper
      end
 
      #if recipe url empty - destroy/clear
-     #TastyRecipes::Recipe.all.reject!{|item| item.title == "{{{ name }}}"}
-     TastyRecipes::Recipe.all
+     TastyRecipes::Recipe.all.reject!{|item| item.title.include?("{{{ name }}}")}
 
+     TastyRecipes::Recipe.all
   end
 
   def self.scrape_recipe_info(recipe)
