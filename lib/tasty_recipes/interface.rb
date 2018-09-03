@@ -11,7 +11,12 @@ class TastyRecipes::Interface
     search(input)
 
     #puts recipe titles that contain input ingredients
-    print_titles
+    if TastyRecipes::Recipe.all == []
+      puts "Sorry, we can't find any recipes for #{input}"
+      call
+    else
+      print_titles
+    end
 
     puts "Enter the number of the recipe you would like to try"
     selected_recipe_num = gets.chomp
