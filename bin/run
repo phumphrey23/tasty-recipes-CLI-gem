@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-#require "bundler/setup"
+require "bundler/setup"
 require_relative '../lib/tasty_recipes.rb'
+
 puts "Welcome to Tasty Recipes"
 TastyRecipes::Interface.new.call

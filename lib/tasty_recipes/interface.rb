@@ -1,5 +1,3 @@
-#encapsulate logic of how the user will interact with program
-
 class TastyRecipes::Interface
 
   def call
@@ -18,15 +16,6 @@ class TastyRecipes::Interface
     selected_recipe_num = gets.chomp
 
     recipe_info(selected_recipe_num)
-
-
-    #PROBLEMS TO ADDRESS
-      #invalid input (special characters or blank) / RESOLVED
-      #search not found / RESOLVED
-      #every title past 20 has no usable info / RESOLVED
-      #recipes within a recipe's title / RESOLVED
-      #searching non-ingredients but still valid (ex. valid searches like breakfast, ravioli, etc will return titles) / RESOLVED
-
   end
 
   def format_lists
@@ -36,7 +25,6 @@ class TastyRecipes::Interface
   end
 
   def search(input)
-  #generate url slug given user input for ingredients
     base = "https://tasty.co/search?q="
 
     special = "?<>',?[]}{=-)(*&^%$#`~{}"
@@ -49,7 +37,6 @@ class TastyRecipes::Interface
 
     url = base + slug
 
-    #scrapes generated url for recipe titles
     TastyRecipes::Scraper.scrape_recipe(url)
   end
 
@@ -63,11 +50,8 @@ class TastyRecipes::Interface
       call
     end
 
-    #scrape ingredients and instruction to add to an instance of a recipe
       TastyRecipes::Scraper.scrape_recipe_info(selected_recipe)
 
-    #1 print ingredients and instruction (FINISHED)
-    #2 if compilation --> scrape_recipe, get input, get recipe_info (FINISHED)
       if selected_recipe.ingredients != [] && selected_recipe.instructions != []
         print_recipe(selected_recipe)
       else
