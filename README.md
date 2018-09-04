@@ -1,6 +1,8 @@
 # TastyRecipes
 
-  A user will input ingredients they have or want in a meal.  This gem will pull all recipe titles from Tasty (tasty.co) containing those ingredients and a user can choose which recipe they'd like to try.  Once the user inputs which recipe, all the required ingredients and instructions will display.  If a user inputs an invalid choice for ingredients, 5 most recent recipes will display for the user to choose from.  If the user inputs an invalid response from the listed recipes, they will be prompted to choose from the list displayed or start a new search.
+  A person can search for recipes by entering ingredients, a course, or a type of meal they want.  This gem will pull all recipe titles from Tasty (tasty.co) matching their search and a person can choose which recipe they'd like to try.  Once the person inputs which recipe, all the required ingredients and instructions will display.
+
+  If a person inputs an invalid search, the program will notify them and restart.  If they input an invalid response from the listed recipes, they will be notified and start a new search.
 
 ## Installation
 
@@ -20,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+  Enter the following and follow the on screen prompts.
+
+    $ tasty_recipes
 
 ## Development
 
