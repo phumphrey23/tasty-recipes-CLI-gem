@@ -1,5 +1,5 @@
 class TastyRecipes::Recipe
-  attr_accessor :title, :course, :ingredients, :instructions, :url
+  attr_accessor :title, :ingredients, :instructions, :url
 
   @@all = []
 

@@ -1,6 +1,7 @@
 class TastyRecipes::Interface
 
   def call
+    puts ""
     puts "Please enter a valid search.  You can search by ingredients, meal course, or a name of a specific dish."
     input = gets.chomp.downcase
     search(input)
@@ -68,12 +69,15 @@ class TastyRecipes::Interface
   def print_titles
     recipe_titles = TastyRecipes::Recipe.all.map { |item| item.title }
     recipe_titles.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+    puts ""
   end
 
   def print_recipe(recipe)
     puts "#{recipe.title}"
+    puts ""
     puts "Here are the ingredients you will need:"
     recipe.ingredients.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
+    puts""
     puts "Follow these instructions:"
     recipe.instructions.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
   end
