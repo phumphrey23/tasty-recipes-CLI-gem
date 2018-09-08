@@ -19,12 +19,6 @@ class TastyRecipes::Interface
     recipe_info(selected_recipe_num)
   end
 
-  def format_lists
-    self.each.with_index(1) do |element, i|
-      puts "#{i}. #{element}"
-    end
-  end
-
   def search(input)
     base = "https://tasty.co/search?q="
 
