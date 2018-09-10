@@ -1,8 +1,17 @@
 class TastyRecipes::Interface
 
+  def start
+    puts "Welcome to Tasty Recipes"
+    call
+  end
+
   def call
+    input = ""
+    while input != "exit"
+
     puts ""
     puts "Please enter a valid search.  You can search by ingredients, meal course, or a name of a specific dish."
+    puts "If you would like to leave type the word exit"
     input = gets.chomp.downcase
     search(input)
 
@@ -17,6 +26,8 @@ class TastyRecipes::Interface
     selected_recipe_num = gets.chomp
 
     recipe_info(selected_recipe_num)
+    TastyRecipes::Recipe.all.clear
+  end
   end
 
   def search(input)
@@ -49,6 +60,7 @@ class TastyRecipes::Interface
 
       if selected_recipe.ingredients != [] && selected_recipe.instructions != []
         print_recipe(selected_recipe)
+        TastyRecipes::Recipe.all.clear
       else
         TastyRecipes::Recipe.all.clear
         TastyRecipes::Scraper.scrape_recipe(selected_recipe.url)
@@ -75,5 +87,6 @@ class TastyRecipes::Interface
     puts "Follow these instructions:"
     recipe.instructions.each.with_index(1) { |element, i| puts "#{i}. #{element}" }
   end
+
 
 end
